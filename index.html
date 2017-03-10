@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Introduction to Model Games</title>
+    </head>
+    <body>
+        <div class='container'>
+            <div class='jumbotron'>
+                <h1>Introduction to Model Games</h1>
+                <p>For <a href='http://web.bentley.edu/empl/c/ncarter'>Nathan Carter</a>'s MA305H class.</p>
+            </div>
+            <p>An <b>Model Game</b> is a game played between two
+               players, the <b>Challenger</b> and the <b>Defender</b>.  The game helps
+               us understand which sentences of QL are true in a particular model.
+               (Recall that QL is the first-order language introduced in the textbook
+               <a href='http://web.bentley.edu/empl/c/ncarter/faxil'
+                >forallx in <i>Lurch</i></a>.)</p>
+            <p>Each statement of QL is a game that can be played on any model.
+               <ul>
+                 <li>The Defender tries to defend the statement,
+                     that is, tries to show that it's true.</li>
+                 <li>The Challenger tries to oppose the statement,
+                     that is, tries to show that it's false.</li>
+               </ul></p>
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">To play now:</h3>
+                </div>
+                <div class="panel-body" id="modelList">
+                </div>
+            </div>
+            <h3>Here is how they play:</h3>
+            <p>The two players do not take turns.  Rather, we read through the statement
+               from left to right, and play as follows:
+               <ul>
+                 <li>Whenever a universal quantifier like &forall;<i>x</i>
+                     is read, the Challenger gets to choose the value of <i>x</i>,
+                     from the UD of the model.</li>
+                 <li>Whenever an existential quantifier like &exist;<i>y</i>
+                     is read, the Defender gets to choose the value of <i>y</i>,
+                     from the UD of the model.</li>
+               </ul></p>
+            <p>(The Defender can read the universal quantifier
+               &forall;<i>x</i> as, "No matter what my opponent chooses for
+               <i>x</i>," and the existential quantifier &exist;<i>x</i> as,
+               "I can find an <i>x</i> such that...")</p>
+            <p>When there are no more quantifiers left,
+               it is easy to check to see if the statement is true or false,
+               using the model and the values the players chose.<br>
+               If the sentence is true, the Defender wins; he or she
+               successfully defended the statement from attack.
+               If it is false, the Challenger wins.</p>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Example:</h3>
+                </div>
+                <div class="panel-body">
+                    <p align=center><font size=+3>\(\forall x, \exists y, greater(x,y)\)</font></p>
+                    <center><table border=0>
+                      <tr><td align=right valign=top>UD: &nbsp; &nbsp;</td>
+                          <td valign=top>whole numbers</td></tr>
+                      <tr><td align=right valign=top>\(greater(x,y)\): &nbsp; &nbsp;</td>
+                          <td valign=top>\(x\) is greater than \(y\)<br>
+                              (that is, \(\{(0,1),(1,2),(0,2),(-1,0),\ldots\}\), an infinite list)</td></tr>
+                    </table></center>
+                    <p>The players might play this game as follows.
+                       <ol>
+                         <li>Starting to read the sentence from the left,
+                             we come to \(\forall x\).</li>
+                         <li>Let's say that the Challenger chooses \(x=3\).
+                             Then the remainder of the sentence (after the first
+                             quantifier) now reads \(\exists y, greater(3,y)\),
+                             because we replaced \(x\) with 3.</li>
+                         <li>Continuing reading the sentence,
+                             we next come to \(\exists y\).</li>
+                         <li>The Defender is trying to make \(greater(x,y)\) true, or rather
+                             \(greater(3,y)\), which means "3 is greater than \(y\)."
+                             So the Defender chooses \(y=2\).
+                             Thus the remainder of the sentence now reads
+                             \(greater(3,2)\), because we replaced \(y\) with 2.</li>
+                         <li>We read through the rest of the sentence without finding any
+                             more quantifiers, so we can now determine who wins.</li>
+                         <li>The quantifiers gone, we have \(greater(3,2)\), or
+                             "3 is greater than 2," according to the symbolization key.
+                             Obviously this is true, so the Defender wins.</li>
+                       </ol>
+                    </p>
+                </div>
+            </div>
+                <h3>Notes:</h3>
+                <p>If a statement has only universal quantifiers in it, then the Defender
+                   never gets to play; the Challenger makes all the moves.  But of course
+                   the Defender can still win, if the sentence comes out true.</p>
+                <p>Similarly, if a sentence has only existential quantifiers in it, the
+                   Challenger never gets to play, but may still win if the Defender's
+                   choices result in a false statement in the end.</p>
+                <p>If the Defender wins, that does <i>not</i> mean the statement is true in the model.
+                   Maybe the Challenger just played badly!
+                   Similarly, if the Challenger wins, the statement may still be true in the model.
+                   Maybe the Defender just played badly.</p>
+                <p>The statement is true in the model if the Defender has a <i>winning strategy,</i>
+                   that is, a procedure he or she can follow to <i>always</i> win.
+                   The statement is false in the model if the Challenger has a winning strategy.
+                   We will discuss in class how to describe winning strategies.</p>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="./model-games.js"></script>
+        <script src="./my-games.js"></script>
+    </body>
+</html>
+        
